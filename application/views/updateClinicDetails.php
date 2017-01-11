@@ -102,6 +102,16 @@
                     <input class="form-control" readonly="readonly" type="text" name="email" id="email" value=" <?php echo $user['email'] ?>" placeholder="Enter Email id" /> 
                 </div>
                 <div class="form-group">
+                    <label for="clinic_office_no">Address :</label>
+                    <input class="form-control" readonly="readonly" type="text" name="address" id="address" value=" <?php echo $user['address'] ?>" placeholder="Enter Mobile No.">
+                </div>
+
+                <div class="form-group">
+                    <label for="clinic_office_no">Date Of Birth :</label>
+                    <input class="form-control" readonly="readonly" type="text" name="date_of_birth" id="date_of_birth" value=" <?php echo $user['date_of_birth'] ?>" placeholder="Enter Mobile No.">
+                </div>
+
+                <div class="form-group">
                     <label for="clinic_office_no">Mobile Number :</label>
                     <input class="form-control" readonly="readonly" type="text" name="mobile_no" id="mobile_no" value=" <?php echo $user['mobile_no'] ?>" placeholder="Enter Mobile No.">
                 </div>
@@ -118,7 +128,7 @@
                                                 
                                <?php
 
-                                $imgpath = base_url('uploads/clinics/' . $user['id'] );
+                                $imgpath = base_url('uploads/users/' . $user['id'] );
                                 
                                  if($files && count($files) > 0) {
                                      foreach($files as $image) { ?>

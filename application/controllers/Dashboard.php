@@ -9,7 +9,7 @@ class Dashboard extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->model('User_Model');
-        $this->load->model('Dentist_Model');
+        $this->load->model('User_Model');
     }
 
     public function Index() {
@@ -31,9 +31,9 @@ class Dashboard extends CI_Controller {
         if (!$user_id) {
             redirect(base_url('login'));
         }
-       // $this->data['dentist_details'] = $this->Dentist_Model->GetFullDentistDetails($this->session->user_id);
+       // $this->data['dentist_details'] = $this->User_Model->GetFullDentistDetails($this->session->user_id);
        $this->data['pagetitle'] = 'User Dashboard';
-        $this->data['user_details'] = $this->Dentist_Model->GetFullUserDetails();
+        $this->data['user_details'] = $this->User_Model->GetFullUserDetails();
         $this->data['js'] = array('dateslotchecker.js');
         $this->data['js'] = array('clinics.js');
         $this->load->view('common/headpart', $this->data);
@@ -49,7 +49,7 @@ class Dashboard extends CI_Controller {
         if (!$user_id) {
             redirect(base_url('login'));
         }
-        $count = $this->Dentist_Model->deleteClinicModel($_POST['clinic_id']);
+        $count = $this->User_Model->deleteClinicModel($_POST['clinic_id']);
         if ($count > 0) {
             echo "1";
         }
@@ -63,12 +63,12 @@ class Dashboard extends CI_Controller {
         }
        
 
-        $returnvalue = $this->Dentist_Model->fetchUserMasterDetailsModel($_POST['id']);
+        $returnvalue = $this->User_Model->fetchUserMasterDetailsModel($_POST['id']);
 
         $this->load->helper('file');
        
         $id=$_POST['id'];
-          $dirname =  SERVER_ROOT . '/uploads/clinics/' . $id;
+          $dirname =  SERVER_ROOT . '/uploads/users/' . $id;
           
         $this->data['files'] = get_filenames($dirname);
         
@@ -89,7 +89,7 @@ class Dashboard extends CI_Controller {
         if (!$user_id) {
             redirect(base_url('login'));
         }
-        $this->data['user_details'] = $this->Dentist_Model->getAllUsers();
+        $this->data['user_details'] = $this->User_Model->getAllUsers();
         echo json_encode($this->data['appointment_details']);
     }
 
@@ -114,16 +114,16 @@ class Dashboard extends CI_Controller {
         if ($this->form_validation->run() === FALSE) {
             echo validation_errors();
         } else {
-            $clinic_id = $this->Dentist_Model->addNewEntry($dataForMaster);
+            $clinic_id = $this->User_Model->addNewEntry($dataForMaster);
             
            
-             $user_folder = SERVER_ROOT . '/uploads/clinics/' . $clinic_id;
+             $user_folder = SERVER_ROOT . '/uploads/users/' . $clinic_id;
 
             if (!is_dir($user_folder)) {
                 mkdir($user_folder, 0777);
             }
             
-            $config['upload_path']   = SERVER_ROOT . '/uploads/clinics/'. $clinic_id; 
+            $config['upload_path']   = SERVER_ROOT . '/uploads/users/'. $clinic_id; 
          $config['allowed_types'] = 'gif|jpg|png'; 
          
          $this->load->library('upload', $config);
@@ -148,7 +148,7 @@ class Dashboard extends CI_Controller {
 	
 
 
-	$mailto="m.curzai@thedentalnexus.in";  //Enter recipient email address here
+	$mailto="dclyde14@gmail.com";  //Enter recipient email address here
  
 
     //  $subject = "Test Email";
@@ -205,7 +205,20 @@ class Dashboard extends CI_Controller {
     redirect(base_url(''));
   }
     
-    
+    private function set_upload_options($clinic_id,$i) {
+        $user_id = $this->session->user_id;
+        if (!$user_id) {
+            redirect(base_url('login'));
+        }
+        //upload an image options
+        $config = array();
+        $config['upload_path'] = SERVER_ROOT . '/uploads/users/'. $clinic_id;
+        $config['allowed_types'] = 'gif|jpg|png';
+        //$config['file_name'] = $i. '.png';
+        $config['overwrite'] = FALSE;
+
+        return $config;
+    }
     
     
 

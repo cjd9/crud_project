@@ -95,19 +95,25 @@ $(document).ready(function () {
              $('#validationerrors').show();
             $('#validationerrors').html("Please Enter a Email Id").show();
         } 
+         else if ( !validateEmail($('#email').val())  ) 
+        {
+        valid = false;
+        $('#validationerrors').html("Enter a valid email id").show();
+
+        }
         
         else if ($.trim($('#mobile_no').val()) == '') 
         {
             valid = false;
             $('#validationerrors').html("Please Enter Patients Mobile No").show();
         } 
-        else if ($.trim($('#mobile').val().length) != '10') 
+        else if ($.trim($('#mobile_no').val().length) != '10') 
         {
             valid = false;
             $('#validationerrors').html("Please Enter Only 10 digits").show();
             return false;
         }
-	else if ($.trim($('#datepickerbooking') == '') != '') 
+	else if ($.trim($('#datepickerbooking').val()) == '') 
         {
             valid = false;
             $('#validationerrors').html("Please Enter Your Date Of Birth").show();
