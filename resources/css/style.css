@@ -1,0 +1,295 @@
+#timeslot{
+    min-height: 100px;
+}
+.float-right {
+    float: right !important;
+}
+.float-left {
+    float: left !important;
+}
+.margin-top-20 {
+    margin-top: 20px !important;
+}
+.width-100 {
+    width: 100% !important;
+}
+.padding-hori-15 {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+}
+.padding-left-0 {
+    padding-left: 0 !important;
+}
+.padding-top-20 {
+    padding-top: 20px !important;
+}
+.pos-relative {
+    position: relative !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Form Wizard
+/* ---------------------------------------------------------------------- */
+.swMain > ul {
+display: table;
+list-style: none;
+margin: 0 0 20px 0;
+padding: 0;
+position: relative;
+width: 100%;
+}
+
+.swMain > ul li {
+display: table-cell;
+text-align: center;
+width: 1%;
+}
+
+.swMain > ul li > a:before {
+border-top: 4px solid #CED1D6;
+content: "";
+display: block;
+font-size: 0;
+height: 1px;
+overflow: hidden;
+position: relative;
+top: 21px;
+width: 100%;
+z-index: 1;
+}
+
+.swMain > ul li:first-child > a:before {
+left: 50%;
+max-width: 51%;
+}
+
+.swMain > ul li:last-child > a:before {
+max-width: 50%;
+width: 50%;
+}
+
+.swMain > ul li > a.selected:before, .swMain li > a.done:before {
+border-color: #5293C4;
+}
+
+.swMain > ul .stepNumber {
+background-color: white;
+border: 5px solid #CED1D6;
+border-radius: 100% 100% 100% 100%;
+color: #546474;
+display: inline-block;
+font-size: 15px;
+height: 40px;
+line-height: 30px;
+position: relative;
+text-align: center;
+width: 40px;
+z-index: 2;
+}
+
+.swMain > ul li > a.selected .stepNumber {
+border-color: #5293C4;
+}
+
+.swMain ul li > a.done .stepNumber {
+border-color: #5293C4;
+background-color: #5293C4;
+color: #fff;
+text-indent: -9999px;
+}
+
+.swMain ul li > a.done .stepNumber:before {
+content: "\f00c";
+display: inline;
+float: right;
+font-family: FontAwesome;
+font-weight: 300;
+height: auto;
+text-shadow: none;
+margin-right: 7px;
+text-indent: 0;
+}
+
+.swMain ul li > a.done.wait .stepNumber {
+background-color: #F6F6F6 !important;
+color: #CCCCCC !important;
+text-indent: -0px !important;
+}
+
+.swMain ul li > a.done.wait .stepNumber:before {
+content: "" !important;
+}
+
+.swMain > ul li .stepDesc {
+color: #8b91a0;
+display: block;
+font-size: 14px;
+margin-top: 4px;
+max-width: 100%;
+table-layout: fixed;
+text-align: center;
+word-wrap: break-word;
+z-index: 104;
+}
+
+.swMain > ul li > a.selected .stepDesc, .swMain li > a.done .stepDesc {
+color: #2B3D53;
+}
+
+.swMain > ul li > a:hover {
+text-decoration: none;
+}
+
+.swMain > ul li > a.disabled {
+cursor: default;
+}
+
+.swMain .progress {
+margin-bottom: 30px;
+}
+
+.swMain .stepContainer {
+height: auto !important;
+}
+
+.swMain .loader {
+display: none;
+}
+
+.swMain [class^="button"], .swMain [class*=" button"] {
+display: none;
+}
+
+.swMain .close {
+display: none;
+}
+
+/**********/
+
+
+.intra-oral-image-holder {
+float: left;
+width: 150px;
+height: 150px;
+border: 1px dashed #555;
+text-align: center;
+font-size: 50px;
+border-radius: 5px;
+position: relative;
+margin-right: 20px;
+margin-bottom: 20px;
+}
+
+.intra-oral-image-holder.error {
+    color: #e63030;
+    border-color: #e63030;
+}
+
+.intra-oral-image-holder img {
+    border-radius: inherit;
+}
+.intra-oral-image-holder i {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+top: 50%;
+margin-top: -25px;
+}
+
+
+/*.inputWrapper {
+    height: 32px;
+    width: 64px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    Using a background color, but you can use a background image to represent a button
+    background-color: #DDF;
+}
+.fileInput {
+    cursor: pointer;
+    height: 100%;
+    position:absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    This makes the button huge. If you want a bigger button, increase the font size
+    
+    Opacity settings for all browsers
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}*/
+
+.select2-container {
+    width: 100% !important;
+}
+
+ .uploaded-img-preview {
+        border: 1px solid #ddd;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+    
+    .intra-oral-image-holder > img {
+     height: 150px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 8;
+    }
+    
+    #validationerrors {
+    color: red;
+}
+
+.select2-selection__choice{
+    color:#40763c !important;
+}
+
+#patientvalidationerrors {
+    
+        display: block;
+    margin: 20px 0 0 0;
+}
+
+#error_login
+{
+    display: block;
+    color: red;
+        margin-top: 19px;
+    margin-bottom: 15px
+}
+
+/* ---------------------------------------------------------------------- */
+/*  Subview
+/* ---------------------------------------------------------------------- */
+.subviews {
+   background-color: #FFFFFF;
+   position: absolute;
+   right: 0;
+   top: 0;
+   z-index: 501;
+   display: none;
+   overflow-y: auto;
+   -moz-transition: all 0.3s ease-in-out;
+   -o-transition: all 0.3s ease-in-out;
+   -webkit-transition: all 0.3s ease-in-out;
+   -ms-transition: all 0.3s ease-in-out;
+   transition: all 0.3s ease-in-out;
+}
+
+.subviews-top {
+   height: 0;
+   left: 0;
+}
+
+.subviews-right {
+   width: 0;
+   left: auto;
+   right: 0;
+}
+
+/* subviews end */
