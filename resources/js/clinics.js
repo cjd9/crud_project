@@ -9,10 +9,9 @@ $(document).ready(function () {
             {
                 $.ajax({
                     type: 'post',
-                    url: "dashboard/deleteclinic",
-                    data: {'clinic_id': cid},
+                    url: "dashboard/deleteUser",
+                    data: {'user_id': cid},
                     success: function (res) {
-                        alert(res);
                         console.log(res);
                         if (res == 1)
                         {

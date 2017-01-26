@@ -148,7 +148,135 @@ $(document).ready(function () {
     });
 
 
-      
+      $('#register_btn').on('click', function (e) {
+        var valid = true;
+        e.preventDefault();
+        
+        if ($.trim($('#first_name').val()) == '') 
+        {
+            valid = false;
+            $('#validationerrors').show();
+            $('#validationerrors').html("Please Enter your First Name");
+        } 
+        else if ($.trim($('#last_name').val()) == '') 
+        {
+            valid = false;
+             $('#validationerrors').show();
+            $('#validationerrors').html("Please Enter your last name").show();
+        } 
+        else if ($.trim($('#email_id').val()) == '') 
+        {
+            valid = false;
+             $('#validationerrors').show();
+            $('#validationerrors').html("Please Enter a Email Id").show();
+        } 
+         else if ( !validateEmail($('#email_id').val())  ) 
+        {
+        valid = false;
+        $('#validationerrors').html("Enter a valid email id").show();
+
+        }
+
+         else if ($.trim($('#password').val()) == '') 
+        {
+            valid = false;
+             $('#validationerrors').show();
+            $('#validationerrors').html("Please Enter a password").show();
+        } 
+
+        else if ($.trim($('#confirm_password').val())!=$.trim($('#password').val())) 
+        {
+            valid = false;
+             $('#validationerrors').show();
+            $('#validationerrors').html("Passwords do noot match").show();
+        } 
+        
+        else if ($.trim($('#mobile_no').val()) == '') 
+        {
+            valid = false;
+            $('#validationerrors').html("Please Enter a Mobile No").show();
+        } 
+        else if ($.trim($('#mobile_no').val().length) != '10') 
+        {
+            valid = false;
+            $('#validationerrors').html("Please Enter Only 10 digits").show();
+            return false;
+        }
+  
+       
+          
+        if (valid) 
+        {
+            console.log("Submitting Form");   
+            $.ajax({
+                type:'POST',
+                url:HOME_URL + 'register',
+                dataType:'json',
+                data:$('#signup_form').serialize(),
+                success: function(res){
+                    if(res.status == 'ok') 
+                    {
+                       alert('Registration Successfull. login to continue');
+                       window.location = HOME_URL+"/login";
+
+                       location.reload();
+
+                    }
+                    else if(res.status == 'error'){
+                     alert(res.message);
+
+                        
+                    }
+                    else 
+                    {
+                        alert('fail');
+                    }
+                }
+            }); 
+
+        } 
+        else 
+        {
+            return false;
+        }
+    });
+
+
      
   });
+
+$(document).ready(function () {
+    $(".deleteclinicaction").click(function () {
+        var r = confirm("Are You Sure?");
+        if (r == true)
+        {
+            var btn = $(this).find("button[type=submit]:focus").val();
+            var cid = $(this).parent().find(".cid").val();
+            if (btn == 'delete')
+            {
+                $.ajax({
+                    type: 'post',
+                    url: "dashboard/deleteUser",
+                    data: {'user_id': cid},
+                    success: function (res) {
+                        console.log(res);
+                        if (res == 1)
+                        {
+                            alert("Data Deleted");
+                            location.reload();
+                        } 
+                        else
+                        {
+                            alert("we could not delete this data");
+                        }
+                    }
+                });
+            }  
+        } 
+        else
+        {
+            return false;
+        }
+    });
+});
     

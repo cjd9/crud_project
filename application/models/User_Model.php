@@ -46,11 +46,11 @@ class User_Model extends ci_model {
 
    
 
-    public function UpdateUserDetails($array) {
-        $this->ocdb->where('user_id', $this->session->user_id);
-        $count = $this->ocdb->update('users', $array);
-        return $count;
-    }
+    // public function UpdateUserDetails($array) {
+    //     $this->ocdb->where('user_id', $this->session->user_id);
+    //     $count = $this->ocdb->update('users', $array);
+    //     return $count;
+    // }
 
 
     
@@ -421,7 +421,7 @@ class User_Model extends ci_model {
         
         $query = $this->ocdb
                 ->from('users as u')
-                ->join('dentist_master as up', 'u.user_id = up.dentist_id');
+                ->join('user_master as up', 'u.user_id = up.dentist_id');
         if ($forauth) {
             //Get user details for Authentication
             $select_arr = array_merge($select_arr, array('u.password'));
@@ -491,6 +491,8 @@ class User_Model extends ci_model {
     public function prPicUpload($user_id) {
         $this->ocdb->set('profile_picture', 1)->where('user_id', $user_id)->update('users');
     }
+
+
     public function removePrPic($user_id) {
         $errors = array();
         $retVal=array('status'=>'ok','message'=>'success');
@@ -502,5 +504,89 @@ class User_Model extends ci_model {
             $retVal['message'] = $dberror['message'];
         }
         return $retVal;
+    }
+
+        public function registerUser($params) {
+        $user_id = $full_name = '';
+         $retArray = array('status' => 'ok', 'message' => 'success');
+         $errors = array();
+        $query = $this->ocdb->select(['user_id', 'email_id', 'mobile_no', 'user_name'])
+                ->from('users')
+                ->where('email_id', $params['email_id']);
+        if (isset($params['mobile_no']) && $params['mobile_no'] != '')
+            $query = $query->or_where('mobile_no', $params['mobile_no']);
+        if (isset($params['user_name']) && $params['user_name'] != '')
+            $query = $query->or_where('user_name', $params['user_name']);
+        $query = $query->get();
+        //Fetch user if already have in our system
+        $res = $query->result_array();
+        if (count($res) > 0) {
+            //User's email ID or phone number is already registered
+            $retArray = array('status' => 'error', 'message' => 'User Already Exists. Please choose a different email or mobile no');
+
+        
+        }  else{
+            if (count($errors) == 0) {
+           
+                if (!isset($params['user_name']) || (isset($params['user_name']) && $params['user_name'] == '')) {
+                    $params['user_name'] = $params['email_id'];
+                }
+                $insertArray = array('email_id' => $params['email_id']);
+                $insertArray2 = array();
+                if (isset($params['mobile_no']) && $params['mobile_no'])
+                    $insertArray['mobile_no'] = $params['mobile_no'];
+                if (isset($params['user_name']) && $params['user_name'])
+                    $insertArray['user_name'] = $params['user_name'];
+                if (isset($params['password']) && $params['password'])
+                    $insertArray['password'] = $this->getPasswordHash($params['password']);
+                 if (isset($params['first_name']) && $params['first_name'])
+                    $insertArray2['first_name'] = $params['first_name'];
+                if (isset($params['last_name']) && $params['last_name'])
+                    $insertArray2['last_name'] = $params['last_name'];
+         
+              
+                $this->ocdb->trans_start();
+                $this->ocdb->insert('users', $insertArray);
+                $dberror = $this->ocdb->error();
+                if(isset($dberror['code']) && $dberror['code'] && isset($dberror['message']) && $dberror['message']) {
+                    $errors[$dberror['code']] = $dberror['message'];
+                }
+                $user_id = $this->ocdb->insert_id();
+                $insertArray2['dentist_id'] = $user_id;
+                $this->ocdb->insert('user_master', $insertArray2);
+                $dberror = $this->ocdb->error();
+                if(isset($dberror['code']) && $dberror['code'] && isset($dberror['message']) && $dberror['message']) {
+                    $errors[$dberror['code']] = $dberror['message'];
+                }
+                $this->ocdb->trans_complete();
+                
+                if ($this->ocdb->trans_status() === FALSE) {
+                    //Unable to perform action
+                    if(count($errors) == 0) {
+                        $errors['100'] = $this->errors['100'];
+                    }
+                    $fail = true;
+                }
+            }
+        }
+        
+        if (count($errors) > 0) {
+            $retArray['status'] = 'error';
+            $retArray['message'] = $errors;
+        }
+        return $retArray;
+    }
+
+     public function deleteUser($id){
+
+        $this->ocdb->where('id', $id);
+        $count = $this->ocdb->delete('user_details');
+        return $count;
+    }
+     public function UpdateUserDetails($data) {
+        $this->ocdb->where('id', trim($data['id']));
+        $trimmed_array=array_map('trim',$data);
+        $count = $this->ocdb->update('user_details', $trimmed_array);
+        return $count;
     }
 }

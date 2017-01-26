@@ -33,7 +33,7 @@
       </div>
   <?php echo form_close(); ?>
 
-    <a href="#">I forgot my password</a><br>
+    <a href="<?php echo base_url('signup') ?>">Signup Here</a><br>
  
   </div>
   <!-- /.login-box-body -->

@@ -19,14 +19,14 @@ class Dashboard extends CI_Controller {
             redirect(base_url('login'));
         } else {
 		
-            $this->doctorclinics();
+            $this->userdets();
          
         }
     }
 
     
 
-    public function doctorclinics() {
+    public function userdets() {
         $user_id = $this->session->user_id;
         if (!$user_id) {
             redirect(base_url('login'));
@@ -34,11 +34,10 @@ class Dashboard extends CI_Controller {
        // $this->data['dentist_details'] = $this->User_Model->GetFullDentistDetails($this->session->user_id);
        $this->data['pagetitle'] = 'User Dashboard';
         $this->data['user_details'] = $this->User_Model->GetFullUserDetails();
-        $this->data['js'] = array('dateslotchecker.js');
-        $this->data['js'] = array('clinics.js');
+       
         $this->load->view('common/headpart', $this->data);
         $this->load->view('common/sidebar', $this->data);
-        $this->load->view('doctorclinics', $this->data);
+        $this->load->view('userdetails', $this->data);
         $this->load->view('common/footer', $this->data);
     }
 
@@ -78,7 +77,7 @@ class Dashboard extends CI_Controller {
   
         $this->load->view('common/headpart', $this->data);
         $this->load->view('common/sidebar', $this->data);
-        $this->load->view('updateClinicDetails', $this->data);
+        $this->load->view('updateUserDetails', $this->data);
         $this->load->view('common/footer', $this->data);
     }
 
@@ -168,7 +167,7 @@ class Dashboard extends CI_Controller {
        
        //$headers="From: info@abroadavenuez.com" . "\r\n" .
      
-     $headers .= 'From: Abroad Avenuez <info@abroadavenuez.com>' . "\r\n";
+     $headers .= 'From: Abroad Avenuez <info@domiainname.com>' . "\r\n";
     
       
        $message_body= "Name: $name  Email:  $emailid   Phone: $phone   Message: $address"; 
@@ -205,20 +204,41 @@ class Dashboard extends CI_Controller {
     redirect(base_url(''));
   }
     
-    private function set_upload_options($clinic_id,$i) {
+    private function set_upload_options($id,$i) {
         $user_id = $this->session->user_id;
         if (!$user_id) {
             redirect(base_url('login'));
         }
         //upload an image options
         $config = array();
-        $config['upload_path'] = SERVER_ROOT . '/uploads/users/'. $clinic_id;
+        $config['upload_path'] = SERVER_ROOT . '/uploads/users/'. $id;
         $config['allowed_types'] = 'gif|jpg|png';
         //$config['file_name'] = $i. '.png';
         $config['overwrite'] = FALSE;
 
         return $config;
     }
+
+
+       public function deleteUser() {
+        $user_id = $this->session->user_id;
+        if (!$user_id) {
+            redirect(base_url('login'));
+        }
+        $count = $this->User_Model->deleteUser($_POST['user_id']);
+        if ($count > 0) {
+            echo "1";
+        }
+    }
+
+    public function updateUserDetails(){
+
+        
+        $this->User_Model->UpdateUserDetails($_POST);
+        redirect(base_url());
+        
+    }
+
     
     
 

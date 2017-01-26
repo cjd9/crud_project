@@ -5,18 +5,21 @@ $route['default_controller'] = 'dashboard';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'user/login';
+$route['signup'] = 'user/signup';
+$route['register'] = 'user/register';
+
 $route['logout'] = 'user/logout';$route['signin'] = 'user/login';
 $route['dashboard'] = 'user/dashboard';
 $route['addTimeSlot'] = 'dashboard/addTimeSlot';
 $route['doctorprofile'] = 'dashboard/doctorprofile';
 $route['viewpatientdetails/(:num)']= 'dashboard/viewpatientdetails/$1';
 $route['doctorpatients'] = 'dashboard/doctorpatients';
-$route['add-user'] = 'dashboard/doctorclinics';
+$route['add-user'] = 'dashboard/userdets';
 $route['doctorappointments'] = 'dashboard/doctorappointments';
 $route['addTimeSlotForPatient'] = 'dashboard/addTimeSlotForPatient';
 $route['checkTimeSlotForClinic']='dashboard/checkTimeSlotForClinic';
 $route['addNewPatient']='dashboard/addNewPatient';
-$route['UpdateClinicDetails']='dashboard/UpdateClinicDetails';
+$route['UpdateUserDetails']='dashboard/UpdateUserDetails';
 $route['doctortreatments']='dashboard/doctortreatments';
 
 $route['postAuth']='dashboard/postAuth';

@@ -59,6 +59,13 @@ class Dentist_Model extends CI_Model {
         return $insert_id;
     }
 
+    public fucntion deleteUser($id){
+
+        $this->ocdb->where('id', $id);
+        $count = $this->ocdb->delete('user_details');
+        return $count;
+    }
+
    
    
    
