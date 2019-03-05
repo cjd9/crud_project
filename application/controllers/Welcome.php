@@ -21,9 +21,11 @@ class Welcome extends CI_Controller {
     private $data = array();
     public function index()
 	{
-       $data['content']   = $this->load->view('order_success_seo', $data, true);
+       $data['content']   = $this->load->view('order_success_seo', $data, true);        $data['content']   = $this->load->view('order_success_seo', $data, true);
+
 		       $data['content']   = $this->load->view('order_success_seo', $data, true);
- $this->load->view('layout', $data);
+ $this->load->view('layout', $data);        $data['content']   = $this->load->view('order_success_seo', $data, true);
+
 
 	}
 }
